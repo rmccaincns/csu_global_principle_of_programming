@@ -1,0 +1,29 @@
+PART 1: ADDITION AND SUBTRACTION
+
+BEGIN
+  DISPLAY "Part 1: Addition and Subtraction"
+  INPUT num1
+  INPUT num2
+  SET addition = num1 + num2
+  SET subtraction = num1 - num2
+  DISPLAY "Addition: num1 + num2 = addition"
+  DISPLAY "Subtraction: num1 - num2 = subtraction"
+END
+
+PART 2: MULTIPLICATION AND DIVISION
+
+BEGIN
+  DISPLAY "Part 2: Multiplication and Division"
+  INPUT num1
+  INPUT num2
+  SET multiplication = num1 * num2
+  IF num2 is not equal to 0 THEN
+    SET division = num1 / num2
+    DISPLAY "Multiplication: num1 * num2 = multiplication"
+    DISPLAY "Division: num1 / num2 = division"
+  ELSE
+    DISPLAY "Multiplication: num1 * num2 = multiplication"
+    DISPLAY "Division: Cannot divide by zero"
+  END IF
+END
+

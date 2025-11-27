@@ -1,0 +1,19 @@
+PSEUDOCODE - Part 1: Restaurant Meal Calculator
+
+BEGIN
+    // Input
+    DISPLAY "Enter the charge for the food: $"
+    INPUT food_charge
+    
+    // Processing
+    SET tip = food_charge * 0.18
+    SET sales_tax = food_charge * 0.07
+    SET total = food_charge + tip + sales_tax
+    
+    // Output
+    DISPLAY "Food Charge: $" + food_charge (formatted to 2 decimal places)
+    DISPLAY "Tip (18%): $" + tip (formatted to 2 decimal places)
+    DISPLAY "Sales Tax (7%): $" + sales_tax (formatted to 2 decimal places)
+    DISPLAY "Total: $" + total (formatted to 2 decimal places)
+END
+

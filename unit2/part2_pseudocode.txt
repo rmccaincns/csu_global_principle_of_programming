@@ -1,0 +1,17 @@
+PSEUDOCODE - Part 2: 24-Hour Clock Alarm Calculator
+
+BEGIN
+    // Input
+    DISPLAY "Enter the current time (in hours, 0-23): "
+    INPUT current_time
+    
+    DISPLAY "Enter the number of hours to wait for the alarm: "
+    INPUT hours_to_wait
+    
+    // Processing
+    SET alarm_time = (current_time + hours_to_wait) MODULO 24
+    
+    // Output
+    DISPLAY "The alarm will go off at " + alarm_time + ":00 on the 24-hour clock."
+END
+

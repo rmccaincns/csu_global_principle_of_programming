@@ -1,0 +1,21 @@
+Course Information Lookup - Pseudocode
+
+BEGIN
+
+    Create rooms dictionary with course numbers and room numbers
+    Create instructors dictionary with course numbers and instructor names
+    Create meeting_times dictionary with course numbers and meeting times
+
+    Prompt user to enter a course number
+    Store input in course_number
+
+    IF course_number exists in rooms THEN
+        Display room number from rooms dictionary
+        Display instructor from instructors dictionary
+        Display meeting time from meeting_times dictionary
+    ELSE
+        Display error message "course number is not valid"
+    END IF
+
+END
+

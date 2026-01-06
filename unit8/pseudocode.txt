@@ -1,0 +1,166 @@
+ONLINE SHOPPING CART - PSEUDOCODE
+==================================
+
+CLASS ItemToPurchase
+--------------------
+ATTRIBUTES:
+    item_name: string (default = "none")
+    item_price: float (default = 0.0)
+    item_quantity: integer (default = 0)
+    item_description: string (default = "none")
+
+CONSTRUCTOR(item_name, item_price, item_quantity, item_description):
+    SET self.item_name = item_name
+    SET self.item_price = item_price
+    SET self.item_quantity = item_quantity
+    SET self.item_description = item_description
+
+METHOD print_item_cost():
+    CALCULATE total = item_quantity * item_price
+    OUTPUT item_name, item_quantity, "@", "$", item_price, "=", "$", total
+
+METHOD get_item_cost():
+    RETURN item_quantity * item_price
+
+
+CLASS ShoppingCart
+------------------
+ATTRIBUTES:
+    customer_name: string (default = "none")
+    current_date: string (default = "January 1, 2020")
+    cart_items: list (empty list)
+
+CONSTRUCTOR(customer_name, current_date):
+    SET self.customer_name = customer_name
+    SET self.current_date = current_date
+    SET self.cart_items = empty list
+
+METHOD add_item(item):
+    APPEND item TO cart_items
+
+METHOD remove_item(item_name):
+    SET found = FALSE
+    FOR each item IN cart_items:
+        IF item.item_name EQUALS item_name:
+            REMOVE item FROM cart_items
+            SET found = TRUE
+            BREAK
+    IF found is FALSE:
+        OUTPUT "Item not found in cart. Nothing removed."
+
+METHOD modify_item(item_to_modify):
+    SET found = FALSE
+    FOR each item IN cart_items:
+        IF item.item_name EQUALS item_to_modify.item_name:
+            SET found = TRUE
+            IF item_to_modify.item_description NOT EQUALS "none":
+                SET item.item_description = item_to_modify.item_description
+            IF item_to_modify.item_price NOT EQUALS 0:
+                SET item.item_price = item_to_modify.item_price
+            IF item_to_modify.item_quantity NOT EQUALS 0:
+                SET item.item_quantity = item_to_modify.item_quantity
+            BREAK
+    IF found is FALSE:
+        OUTPUT "Item not found in cart. Nothing modified."
+
+METHOD get_num_items_in_cart():
+    SET total_quantity = 0
+    FOR each item IN cart_items:
+        ADD item.item_quantity TO total_quantity
+    RETURN total_quantity
+
+METHOD get_cost_of_cart():
+    SET total_cost = 0
+    FOR each item IN cart_items:
+        ADD item.get_item_cost() TO total_cost
+    RETURN total_cost
+
+METHOD print_total():
+    OUTPUT customer_name, "'s Shopping Cart - ", current_date
+    IF cart_items is EMPTY:
+        OUTPUT "SHOPPING CART IS EMPTY"
+    ELSE:
+        OUTPUT "Number of Items: ", get_num_items_in_cart()
+        FOR each item IN cart_items:
+            CALL item.print_item_cost()
+        OUTPUT "Total: $", get_cost_of_cart()
+
+METHOD print_descriptions():
+    OUTPUT customer_name, "'s Shopping Cart - ", current_date
+    OUTPUT "Item Descriptions"
+    FOR each item IN cart_items:
+        OUTPUT item.item_name, ": ", item.item_description
+
+
+FUNCTION print_menu(cart):
+--------------------------
+    DEFINE valid_options = ['a', 'r', 'c', 'i', 'o', 'q']
+    
+    LOOP FOREVER:
+        OUTPUT menu options:
+            "a - Add item to cart"
+            "r - Remove item from cart"
+            "c - Change item quantity"
+            "i - Output items' descriptions"
+            "o - Output shopping cart"
+            "q - Quit"
+        
+        INPUT choice FROM user
+        
+        WHILE choice NOT IN valid_options:
+            OUTPUT "Invalid option. Please try again."
+            INPUT choice FROM user
+        
+        IF choice EQUALS 'q':
+            EXIT LOOP
+        
+        ELSE IF choice EQUALS 'a':
+            OUTPUT "ADD ITEM TO CART"
+            INPUT name FROM user
+            INPUT description FROM user
+            INPUT price FROM user
+            INPUT quantity FROM user
+            CREATE new_item = ItemToPurchase(name, price, quantity, description)
+            CALL cart.add_item(new_item)
+        
+        ELSE IF choice EQUALS 'r':
+            OUTPUT "REMOVE ITEM FROM CART"
+            INPUT name FROM user
+            CALL cart.remove_item(name)
+        
+        ELSE IF choice EQUALS 'c':
+            OUTPUT "CHANGE ITEM QUANTITY"
+            INPUT name FROM user
+            INPUT quantity FROM user
+            CREATE modified_item = ItemToPurchase(item_name=name, item_quantity=quantity)
+            CALL cart.modify_item(modified_item)
+        
+        ELSE IF choice EQUALS 'i':
+            OUTPUT "OUTPUT ITEMS' DESCRIPTIONS"
+            CALL cart.print_descriptions()
+        
+        ELSE IF choice EQUALS 'o':
+            OUTPUT "OUTPUT SHOPPING CART"
+            CALL cart.print_total()
+
+
+FUNCTION main():
+----------------
+    OUTPUT "Enter customer's name:"
+    INPUT customer_name FROM user
+    
+    OUTPUT "Enter today's date:"
+    INPUT current_date FROM user
+    
+    OUTPUT "Customer name: ", customer_name
+    OUTPUT "Today's date: ", current_date
+    
+    CREATE cart = ShoppingCart(customer_name, current_date)
+    
+    CALL print_menu(cart)
+
+
+PROGRAM ENTRY POINT:
+-------------------
+    CALL main()
+
